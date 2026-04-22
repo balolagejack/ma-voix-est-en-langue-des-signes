@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jacques Balolage — Ma voix est en langue des signes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #1a1008;
+      --parchment: #f5f0e8;
+      --warm: #c8773a;
+      --deep: #7c3d12;
+      --gold: #d4a844;
+      --muted: #8a7460;
+      --light: #faf7f2;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--light);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(200,119,58,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 70%, rgba(212,168,68,0.10) 0%, transparent 60%);
+    }
+
+    /* decorative vertical lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(212,168,68,0.25) 30%, rgba(212,168,68,0.25) 70%, transparent);
+    }
+
+    .hero-inner {
+      position: relative;
+      text-align: center;
+      max-width: 780px;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Source Serif 4', serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 700;
+      color: var(--parchment);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(245,240,232,0.65);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s ease both;
+    }
+
+    .hero-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm);
+      opacity: 0;
+      animation: fadeUp 1s 0.9s ease both;
+    }
+
+    .hero-location::before,
+    .hero-location::after {
+      content: '—';
+      opacity: 0.4;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s ease both;
+    }
+
+    .scroll-hint span {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(212,168,68,0.6), transparent);
+      animation: scrollPulse 2s 2s infinite;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote-section {
+      background: var(--warm);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pull-quote-section::before {
+      content: '\201C';
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 18rem;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .pull-quote {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .pull-quote-attr {
+      margin-top: 1.5rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.8rem;
+      font-style: normal;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--warm);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.35;
+    }
+
+    .content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .content p {
+      font-size: 1.05rem;
+      color: #3a2e22;
+      margin-bottom: 1.4rem;
+    }
+
+    .content p strong {
+      color: var(--deep);
+      font-weight: 600;
+    }
+
+    /* ── MILESTONE TIMELINE ── */
+    .timeline {
+      margin: 4rem 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--warm), var(--gold));
+      opacity: 0.4;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 1.8rem;
+      margin-bottom: 2.2rem;
+      position: relative;
+    }
+
+    .timeline-dot {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--parchment);
+      border: 2px solid var(--gold);
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--deep);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-body p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* ── IMPACT STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      background: var(--parchment);
+      border: 1px solid rgba(212,168,68,0.3);
+      border-radius: 4px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(124,61,18,0.12);
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--warm);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── DIVIDER ORNAMENT ── */
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.2rem;
+      opacity: 0.5;
+      margin: 3rem 0;
+      letter-spacing: 0.5rem;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      background: var(--ink);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--parchment);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: rgba(245,240,232,0.6);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      font-size: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.4rem;
+      background: var(--warm);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: 2px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--deep);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--parchment);
+      border-top: 1px solid rgba(212,168,68,0.25);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    footer a {
+      color: var(--warm);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 0.15; }
+    }
+
+    /* ── INTERSECTION OBSERVER REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 600px) {
+      .pull-quote-section::before { font-size: 10rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Témoignage — Droits des personnes handicapées</p>
+      <h1>Ma voix est en<br/><em>langue des signes</em></h1>
+      <p class="hero-sub">Le parcours de Jacques Balolage Mulimbwa, leader sourd, défenseur des droits et directeur exécutif en RDC.</p>
+      <span class="hero-location">Goma, Nord-Kivu &nbsp;·&nbsp; République Démocratique du Congo</span>
+    </div>
+    <div class="scroll-hint">
+      <span>Lire</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pull-quote-section">
+    <blockquote class="pull-quote">
+      « Ne confondez pas le silence avec l'absence, et ne confondez pas les barrières avec l'incapacité. »
+    </blockquote>
+    <p class="pull-quote-attr">— Jacques Balolage Mulimbwa</p>
+  </section>
+
+  <!-- STORY -->
+  <main class="content">
+
+    <div class="reveal">
+      <p class="section-label">Son histoire</p>
+      <h2>Né à Goma, élevé dans la résilience</h2>
+      <p>Jacques Balolage Mulimbwa est né et a grandi à Goma, en province du Nord-Kivu — une région façonnée par les conflits, l'incertitude, mais aussi une profonde résilience. Sixième d'une famille de huit enfants, il a grandi avec la conviction que sa surdité n'était jamais une raison de réduire ses ambitions.</p>
+      <p>Dès son plus jeune âge, il comprend que <strong>l'accès ne se résume pas à être présent dans une salle</strong> — il s'agit de pouvoir participer pleinement, communiquer librement et être reconnu avec dignité.</p>
+    </div>
+
+    <div class="ornament reveal">✦ ✦ ✦</div>
+
+    <!-- TIMELINE -->
+    <div class="reveal">
+      <p class="section-label">Parcours académique</p>
+      <h2>Un chemin tracé malgré les obstacles</h2>
+    </div>
+
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">2017</div>
+        <div class="timeline-body">
+          <h3>Diplôme secondaire — Commerce &amp; Informatique</h3>
+          <p>Premier élève sourd de sa promotion à obtenir ce diplôme.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">2021</div>
+        <div class="timeline-body">
+          <h3>Qualification de premier cycle en Comptabilité — Mention Distinction</h3>
+          <p>Institut Supérieur de Commerce. Lors de la défense publique de son mémoire, on lui refuse l'usage de la langue des signes — il répond par écrit au tableau. Un moment douloureux qui révèle les limites des institutions.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">2023</div>
+        <div class="timeline-body">
+          <h3>Licence en Sciences Commerciales et Financières</h3>
+          <p>Institut Supérieur de Commerce — une victoire supplémentaire pour la représentation des personnes sourdes dans l'enseignement supérieur en RDC.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="reveal">
+      <p class="section-label">Impact</p>
+      <h2>Des actions concrètes, des vies transformées</h2>
+    </div>
+
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-number">1 500+</div>
+        <div class="stat-label">Personnes sourdes et handicapées touchées</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Jeunes leaders formés en Afrique centrale &amp; de l'Est</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Organisations dirigées — Equal Access Innovators &amp; Rise for Impact</div>
+      </div>
+    </div>
+
+    <div class="ornament reveal">✦ ✦ ✦</div>
+
+    <div class="reveal">
+      <p class="section-label">Son message</p>
+      <h2>L'ambition n'est pas de l'arrogance</h2>
+      <p>Jacques défend une conviction simple mais radicale : <strong>les personnes handicapées doivent être libres d'être ambitieuses</strong>. Étudier, diriger, défendre des droits, construire des carrières — aucune de ces aspirations ne devrait être conditionnée par le regard des autres.</p>
+      <p>L'inclusion, dit-il, ne se construit pas seulement dans les documents de politique ou les salles de conférence. Elle se bâtit dans les salles de classe, les réunions communautaires, les familles — chaque fois qu'un élève sourd est autorisé à signer sans argument.</p>
+      <p><strong>« L'accessibilité ne peut pas être traitée comme une faveur. C'est un droit. »</strong></p>
+    </div>
+
+  </main>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Lire le témoignage complet</h2>
+    <p>Découvrez l'intégralité du récit de Jacques sur le dépôt international des droits des personnes handicapées.</p>
+    <a class="btn" href="https://disability-rights-repository.org/2026/03/23/jacques-balolage-deaf-community-leader-democratic-republic-of-congo/" target="_blank" rel="noopener">
+      Lire l'article original ↗
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Page créée pour partager le témoignage de <a href="https://disability-rights-repository.org/2026/03/23/jacques-balolage-deaf-community-leader-democratic-republic-of-congo/" target="_blank">Jacques Balolage Mulimbwa</a> &nbsp;·&nbsp; Source : <a href="https://disability-rights-repository.org" target="_blank">disability-rights-repository.org</a></p>
+  </footer>
+
+  <script>
+    // Intersection Observer for reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
